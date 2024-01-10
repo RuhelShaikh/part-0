@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: https://fullstack-exampleapp.herokuapp.com/new_note_spa
+    
+    Note right of browser: POST request to the address new_note_spa. Content type: application/json
+    activate server 
+    server-->>browser: Status 201
+
+    Note left of server: Server confirms successful resource creation 
+   
+  
+    Note right of browser: The browser executes event handler
+  

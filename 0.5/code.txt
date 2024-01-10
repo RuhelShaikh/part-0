@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa
+    
+    Note right of browser: Browser requests SPA from server via HTTP
+    activate server 
+    server-->>browser: HTML code
+
+    Note left of server: Browser fetches main.css and then spa.js via HTTP.
+   
+    browser->>server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+     
+    activate server
+
+    server-->>browser:  CSS file
+    deactivate server
+
+    browser->>server: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa.js
+    activate server
+    server-->>browser:  JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML is easy", "date": "2024-1-10" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+  

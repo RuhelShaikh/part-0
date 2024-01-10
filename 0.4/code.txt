@@ -1,0 +1,39 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    %% browser sends user input to the server
+    Note right of browser: browser sends user input to the server as an HTTP POST request to the address new_note.
+    activate server 
+    server-->>browser: Status code 302
+    %% 302 is a redirect
+    Note left of server: 302 is a URL redirect, asking browser do a new HTTP GET request  
+    deactivate server
+
+    Note right of browser: Now, the browser will reload the notes page
+
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML file
+    deactivate server
+
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser:  CSS file
+    deactivate server
+
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser:  JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+  
